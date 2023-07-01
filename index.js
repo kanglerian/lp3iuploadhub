@@ -12,6 +12,14 @@ app.get('/', (req, res) => {
   res.send('LP3I Upload Hub');
 });
 
+app.get('/download/:identity/:filename', (req, res) => {
+  const identity = req.params.identity;
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, `uploads/${identity}`, `${filename}`);
+  res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+  return res.sendFile(filePath);
+});
+
 app.post('/pmbupload', async (req, res) => {
   try {
     const imageData = Buffer.from(req.body.image, 'base64');
