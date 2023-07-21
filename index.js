@@ -29,6 +29,7 @@ app.post('/pmbupload', async (req, res) => {
     const typeFile = req.body.typefile;
     const folderPath = path.join(__dirname, `uploads/${identity}`);
     const destination = path.join(__dirname, `uploads/${identity}`, `${identity}-${nameFile}.${typeFile}`);
+    console.log(destination);
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath, { recursive: true })
     }
