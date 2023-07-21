@@ -43,6 +43,7 @@ app.post('/pmbupload', async (req, res) => {
 
 app.delete('/pmbupload', async (req, res) => {
   try {
+    console.log(req.body);
     const identity = req.body.identity;
     const nameFile = req.body.namefile;
     const typeFile = req.body.typefile;
