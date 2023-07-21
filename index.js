@@ -29,7 +29,6 @@ app.post('/pmbupload', async (req, res) => {
     const typeFile = req.body.typefile;
     const folderPath = path.join(__dirname, `uploads/${identity}`);
     const destination = path.join(__dirname, `uploads/${identity}`, `${identity}-${nameFile}.${typeFile}`);
-    console.log(destination);
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath, { recursive: true })
     }
@@ -49,6 +48,7 @@ app.delete('/pmbupload', async (req, res) => {
     const nameFile = req.body.namefile;
     const typeFile = req.body.typefile;
     const destination = path.join(__dirname, `uploads/${identity}`, `${identity}-${nameFile}.${typeFile}`);
+    console.log(destination);
     fs.access(destination, fs.constants.F_OK, (err) => {
       if (err) {
         return res.status(404).json({ error: 'File not found' });
