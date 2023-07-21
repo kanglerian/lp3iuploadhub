@@ -22,12 +22,13 @@ app.get('/download/:identity/:filename', (req, res) => {
 
 app.post('/pmbupload', async (req, res) => {
   try {
+    console.log(req.body);
     const imageData = Buffer.from(req.body.image, 'base64');
     const identity = req.body.identity;
-    const fileName = req.body.filename;
-    const fileType = req.body.filetype;
+    const nameFile = req.body.namefile;
+    const typeFile = req.body.typefile;
     const folderPath = path.join(__dirname, `uploads/${identity}`);
-    const destination = path.join(__dirname, `uploads/${identity}`, `${identity}-${fileName}.${fileType}`);
+    const destination = path.join(__dirname, `uploads/${identity}`, `${identity}-${nameFile}.${typeFile}`);
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath, { recursive: true })
     }
@@ -43,15 +44,16 @@ app.post('/pmbupload', async (req, res) => {
 app.delete('/pmbupload', async (req, res) => {
   try {
     const identity = req.body.identity;
-    const fileName = req.body.filename;
-    const destination = path.join(__dirname, `uploads/${identity}`, `${identity}-${fileName}`);
+    const nameFile = req.body.namefile;
+    const typeFile = req.body.typefile;
+    const destination = path.join(__dirname, `uploads/${identity}`, `${identity}-${nameFile}.${typeFile}`);
     fs.access(destination, fs.constants.F_OK, (err) => {
-      if(err){
+      if (err) {
         return res.status(404).json({ error: 'File not found' });
       }
 
       fs.unlink(destination, (err) => {
-        if(err){
+        if (err) {
           return res.status(500).json({ error: 'Failed to delete file' });
         }
         return res.json({ message: 'File delete successfully' })
