@@ -22,7 +22,6 @@ app.get('/download/:identity/:filename', (req, res) => {
 
 app.post('/pmbupload', async (req, res) => {
   try {
-    console.log(req.body);
     const imageData = Buffer.from(req.body.image, 'base64');
     const identity = req.body.identity;
     const nameFile = req.body.namefile;
@@ -32,6 +31,7 @@ app.post('/pmbupload', async (req, res) => {
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath, { recursive: true })
     }
+    console.log(typeFile);
     fs.writeFileSync(destination, imageData);
     return res.json({
       status: 200
