@@ -41,7 +41,7 @@ app.post('/pmbupload', async (req, res) => {
   }
 });
 
-app.remove('/remove', async (req, res) => {
+app.delete('/remove', async (req, res) => {
   try {
     console.log(req.body);
     const identity = req.body.identity;
