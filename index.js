@@ -12,26 +12,28 @@ app.get('/', (req, res) => {
   res.send('LP3I Upload Hub');
 });
 
-app.get('/download/:identity/:filename', (req, res) => {
-  const identity = req.params.identity;
-  const filename = req.params.filename;
+app.get('/download', (req, res) => {
+  console.log(req.query);
+  const identity = req.query.identity;
+  const filename = req.query.filename;
   const filePath = path.join(__dirname, `uploads/${identity}`, `${filename}`);
   res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
   return res.sendFile(filePath);
 });
 
-app.post('/pmbupload', async (req, res) => {
+app.post('/upload', async (req, res) => {
   try {
-    const imageData = Buffer.from(req.body.image, 'base64');
     const identity = req.body.identity;
-    const nameFile = req.body.namefile;
-    const typeFile = req.body.typefile;
+    const namefile = req.body.namefile;
+    const typefile = req.body.typefile;
+    const imageData = Buffer.from(req.body.image, 'base64');
+
     const folderPath = path.join(__dirname, `uploads/${identity}`);
-    const destination = path.join(__dirname, `uploads/${identity}`, `${identity}-${nameFile}.${typeFile}`);
+    const destination = path.join(__dirname, `uploads/${identity}`, `${identity}-${namefile}.${typefile}`);
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath, { recursive: true })
     }
-    console.log(typeFile);
+    console.log(typefile);
     fs.writeFileSync(destination, imageData);
     return res.json({
       status: 200
@@ -41,12 +43,11 @@ app.post('/pmbupload', async (req, res) => {
   }
 });
 
-app.delete('/remove', async (req, res) => {
+app.delete('/delete', async (req, res) => {
   try {
-    console.log(req.body);
-    const identity = req.body.identity;
-    const nameFile = req.body.namefile;
-    const typeFile = req.body.typefile;
+    const identity = req.query.identity;
+    const nameFile = req.query.namefile;
+    const typeFile = req.query.typefile;
     const destination = path.join(__dirname, `uploads/${identity}`, `${identity}-${nameFile}.${typeFile}`);
     fs.access(destination, fs.constants.F_OK, (err) => {
       if (err) {
