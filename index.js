@@ -33,13 +33,12 @@ app.post('/upload', async (req, res) => {
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath, { recursive: true })
     }
-    console.log(typefile);
     fs.writeFileSync(destination, imageData);
     return res.json({
       status: 200
     })
   } catch (error) {
-    return res.json({ error: error })
+    return res.status(500).json({ error: "Terjadi kesalahan pada server." });
   }
 });
 
@@ -56,13 +55,13 @@ app.delete('/delete', async (req, res) => {
 
       fs.unlink(destination, (err) => {
         if (err) {
-          return res.status(500).json({ error: 'Failed to delete file' });
+          return res.json(err);
         }
         return res.json({ message: 'File delete successfully' })
       })
     });
   } catch (error) {
-    return res.json({ error: error })
+    return res.status(500).json({ error: "Terjadi kesalahan pada server." });
   }
 });
 
