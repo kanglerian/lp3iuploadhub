@@ -21,10 +21,10 @@ Berikut adalah langkah-langkah untuk menginstal dan menjalankan aplikasi:
       version: "3.7"
       services:
         web:
-          container_name: gateway_container
-          image: kanglerian/api-gateway-lp3i:<version>
+          container_name: lp3iuploadhub_container
+          image: kanglerian/api-upload-lp3i:<version>
           ports:
-            - "3000:3000"
+            - "3033:3033"
           restart: unless-stopped
       ```
 
