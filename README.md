@@ -13,7 +13,7 @@ Berikut adalah langkah-langkah untuk menginstal dan menjalankan aplikasi:
 
 2. **Menjalankan Aplikasi:**
 
-  - Buat folder proyek dengan nama `Project-School-API` dan pindah ke direktori proyek.
+  - Buat folder proyek dengan nama `lp3iuploadhub` dan pindah ke direktori proyek.
   - Buat file `docker-compose.yml` dengan konten berikut:
 
 
@@ -26,6 +26,8 @@ Berikut adalah langkah-langkah untuk menginstal dan menjalankan aplikasi:
           ports:
             - "3033:3033"
           restart: unless-stopped
+          volumes:
+            - ./BERKASPMB:/app/uploads
       ```
 
   - Ganti `<version>` dengan tag yang tersedia di Docker Hub.
