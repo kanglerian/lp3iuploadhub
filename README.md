@@ -27,7 +27,7 @@ Berikut adalah langkah-langkah untuk menginstal dan menjalankan aplikasi:
             - "3033:3033"
           restart: unless-stopped
           volumes:
-            - ./BERKASPMB:/app/uploads
+            - /home/lerian/BERKASPMB:/app/uploads
       ```
 
   - Ganti `<version>` dengan tag yang tersedia di Docker Hub.
