@@ -13,7 +13,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/download', (req, res) => {
-  console.log(req.query);
   const identity = req.query.identity;
   const filename = req.query.filename;
   const filePath = path.join(__dirname, `uploads/${identity}`, `${filename}`);
